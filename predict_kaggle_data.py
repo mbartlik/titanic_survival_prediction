@@ -1,8 +1,10 @@
 import pandas as pd
 from model_trainer import model_trainer
+from sklearn.ensemble import RandomForestClassifier
+from titanic_data_loader import titanic_data_loader
 
 # Model is to be trained on ALL of the given labeled data
-# AdaBoost will be used as this was determined to be the best in model_evaluation
+# Random forest will be used as this was determined to be the best in model_evaluation
 # Predictions will be made on the Kaggle test data
 
 
@@ -24,6 +26,8 @@ test_data = test_data.join(one_hot_embarked)
 test_data = test_data.drop('Name', axis=1)
 test_data = test_data.drop('Ticket', axis=1)
 test_data = test_data.drop('Cabin', axis=1)
+test_data = test_data.drop('SibSp', axis=1)
+test_data = test_data.drop('Parch', axis=1)
 
 # Make male/female 1s and 0s
 test_data['Sex'].loc[test_data['Sex'] == 'female'] = 1
@@ -37,11 +41,15 @@ test_data['Fare'].loc[test_data['Fare'].isnull()] = test_data['Fare'].mean()
 passenger_id = test_data['PassengerId']
 test_data = test_data.drop('PassengerId', axis=1)
 
-# Train ada boost model
-ada_boost_model = model_trainer('ada_boost')
+# Train random forest model
+model = RandomForestClassifier(n_estimators=100, max_depth=10, min_samples_split=6, min_samples_leaf=1)
+X_train, y_train = titanic_data_loader()
+model.fit(X_train, y_train)
+
 
 # Make predictions
-predictions = ada_boost_model.predict(test_data)
+predictions = model.predict(test_data)
+print(predictions)
 
 # Combine passenger id with predictions as output
 passenger_id = pd.Series.to_numpy(passenger_id)

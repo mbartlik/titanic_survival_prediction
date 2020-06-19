@@ -18,9 +18,9 @@ def model_trainer(model_type,data_split=False, data_split_point=700):
 	elif model_type == 'SVC':
 		model = SVC()
 	elif model_type == 'random_forest':
-		model = RandomForestClassifier()
+		model = RandomForestClassifier(n_estimators=50, min_samples_split=4)
 	elif model_type == 'ada_boost':
-		model = AdaBoostClassifier()
+		model = AdaBoostClassifier(n_estimators=30, learning_rate=1.2)
 
 	# Load data - data_split point determines how the train/test data is split
 	if data_split:

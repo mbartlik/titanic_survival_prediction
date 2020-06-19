@@ -23,9 +23,12 @@ def titanic_data_loader(data_split=False, data_split_point=700):
 	survival_data = survival_data.join(one_hot_embarked)
 
 	# Drop the names (passenger id is all that is necessary) and ticket numbers and cabin
+	# Also drop SibSp and Parch as these were evaluated to have little feature importance
 	survival_data = survival_data.drop('Name', axis=1)
 	survival_data = survival_data.drop('Ticket', axis=1)
 	survival_data = survival_data.drop('Cabin', axis=1)
+	survival_data = survival_data.drop('SibSp', axis=1)
+	survival_data = survival_data.drop('Parch', axis=1)
 
 	# Make male/female 1s and 0s
 	survival_data['Sex'].loc[survival_data['Sex'] == 'female'] = 1

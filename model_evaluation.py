@@ -22,8 +22,7 @@ def evaluate_model_accuracy(model,data_split_point):
 
 
 
-#model_names = ['logistic_regression','naive_bayes','decision_tree','SVC','random_forest','ada_boost']
-model_names = ['ada_boost']
+model_names = ['logistic_regression','naive_bayes','decision_tree','SVC','random_forest','ada_boost']
 data_split_points = [0,100,200,300,400,500,600,700]
 accuracies = []
 
