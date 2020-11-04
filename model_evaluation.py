@@ -1,6 +1,7 @@
 from model_trainer import model_trainer
 from titanic_data_loader import titanic_data_loader
 
+# Function to evaluate the accuracy of a model
 def evaluate_model_accuracy(model,data_split_point):
 
 	# Load data
@@ -48,15 +49,3 @@ for model_name in model_names:
 # Print accuracies
 for accuracy in accuracies:
 	print("Accuracy: {0:.2f}%".format(accuracy*100))
-
-"""
-Output of this code:
-Accuracy: 79.48%
-Accuracy: 75.81%
-Accuracy: 79.06%
-Accuracy: 66.39%
-Accuracy: 80.21%
-Accuracy: 80.94%
-
-This means adaBoost is the best model to use
-"""
